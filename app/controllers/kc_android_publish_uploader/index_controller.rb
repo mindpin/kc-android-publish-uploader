@@ -2,26 +2,32 @@ module KcAndroidPublishUploader
   class IndexController < ApplicationController
     def download
       version = get_version(params)
-      return 404 if !version
-      uploader = ApkUploader.find("4ye-#{version}.apk")
+      if !version
+        return render :text => 404, :status => 404
+      end
+      uploader = ApkUploader.find("kc-android-#{version}.apk")
       redirect_to uploader.url
     end
 
     def check_version
-      VersionGetter.new(params).response
+      render :json => VersionGetter.new(params).response
     end
 
     def publish
-      VersionUpdater.new(params).response
+      render :json => VersionUpdater.new(params).response
     end
 
     def submit_exception
-      return 406 if params[:feedback]
-      MobileFeedBackSaver.new(params).response
+      if params[:feedback]
+        return render :text => 406, :status => 406
+      end
+      render :text => MobileFeedBackSaver.new(params).response
     end
 
     def submit_feedback
-      return 406 if params[:exception_type] || params[:exception_stack]
+      if params[:exception_type] || params[:exception_stack]
+        return render :text => 406, :status => 406
+      end
       MobileFeedBackSaver.new(params).response
     end
 

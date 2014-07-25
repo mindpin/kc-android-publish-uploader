@@ -15,13 +15,12 @@ module KcAndroidPublishUploader
     end
 
     def response
-      hash = {
+      {
         :newest         => @newest,
         :last_milestone => @last_milestone,
         :current        => @version,
         :update         => @update
       }
-      JSON.generate(hash)
     end
 
     private

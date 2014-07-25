@@ -1,7 +1,8 @@
 KcAndroidPublishUploader::Engine.routes.draw do
   get '/' => 'index#index'
 
-  get "/download/android/4ye-:version.apk" => "index#download"
+  get "/download/android/kc-android-:version.apk" => "index#download",
+   :constraints => {:version => /[0-9a-zA-Z]\.[0-9a-zA-Z]\.[0-9a-zA-Z]/}
 
   post "/check_version" => "index#check_version"
 

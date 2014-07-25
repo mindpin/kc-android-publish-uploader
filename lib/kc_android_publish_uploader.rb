@@ -1,6 +1,8 @@
 require "json"
 require 'yaml'
+require 'aliyun'
 require 'kc_android_publish_uploader/engine'
+require 'kc_android_publish_uploader/apk_uploader'
 require 'kc_android_publish_uploader/feedback_saver'
 require 'kc_android_publish_uploader/mobile_feedback'
 require 'kc_android_publish_uploader/version_getter'

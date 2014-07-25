@@ -3,7 +3,8 @@ module KcAndroidPublishUploader
   class VersionManager
 
     def self.file_path(platform)
-      File.dirname(__FILE__) + '/' + platform + '.yaml'
+      File.expand_path("../../../config/#{platform}.yaml", __FILE__)
+      # File.dirname(__FILE__) + '/' + platform + '.yaml'
     end
 
 

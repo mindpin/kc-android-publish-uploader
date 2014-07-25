@@ -12,13 +12,14 @@ module KcAndroidPublishUploader
       end
       case @is_milestone
       when "true" then @is_milestone = true
-      else false
+      else 
+        @is_milestone = false
       end
     end
 
     def save_file!
-      @size = package[:tempfile].size
-      ApkUploader.store!("4ye-#{version}.apk", package[:tempfile])
+      @size = package.size
+      ApkUploader.store!("kc-android-#{version}.apk", package.tempfile)
       true
     end
 
@@ -75,20 +76,20 @@ module KcAndroidPublishUploader
     end
 
     def success
-      JSON.generate({
+      {
         :status => "success",
         :newest_version => version,
         :newest_milestone => latest_milestone,
         :package_size => size
-      })
+      }
     end
 
     def failure
-      JSON.generate({
+      {
         :status => error,
         :newest_version => current,
         :newest_milestone => latest_milestone
-      })
+      }
     end
   end
 
